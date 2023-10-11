@@ -13,7 +13,7 @@ const gallery = document.querySelector("#gallery");
  * Function to fetch data for 12 random users
  */
 async function getUsers() {
-    const response = await fetch("https://randomuser.me/api/?results=12&inc=name,email,picture,location");
+    const response = await fetch("https://randomuser.me/api/?results=12&nat=us&inc=name,email,picture,location");
 
     const data = await response.json();
     users = data.results;
