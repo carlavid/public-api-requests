@@ -70,7 +70,7 @@ function displayUserModal(user) {
             </div>
         </div>
         `; 
-    document.body.append(modalHtml);
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
 }
 
 
@@ -87,6 +87,5 @@ gallery.addEventListener("click", (e) => {
     const user = users.find(
         (user) => `${user.name.first} ${user.name.last}` === userName
     );
-    console.log(user);
     displayUserModal(user);
 });
