@@ -92,3 +92,15 @@ gallery.addEventListener("click", (e) => {
     );
     displayUserModal(user);
 });
+
+/**
+ * Event listener to handle closing modal window when user
+ * clicks close button
+ */
+document.body.addEventListener("click", (e) => {
+    const closeBtn = document.querySelector(".modal-close-btn");
+    const modalContainer = document.querySelector(".modal-container");
+    if (e.target === closeBtn || e.target.textContent === "X") {
+        modalContainer.remove();
+    }
+})
