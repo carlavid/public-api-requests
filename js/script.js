@@ -59,21 +59,23 @@ function displayUserModal(user) {
 
     const modalHtml = `
         <div class="modal-container">
-        <div class="modal">
-            <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-            <div class="modal-info-container">
-                <img class="modal-img" src=${user.picture.large} alt="profile picture">
-                <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
-                <p class="modal-text">${user.email}</p>
-                <p class="modal-text cap">${user.location.city}</p>
-                <hr>
-                <p class="modal-text">${user.cell}</p>
-                <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-                <p class="modal-text">Birthday: ${formattedDob}</p>
+            <div class="modal">
+                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                <div class="modal-info-container">
+                    <img class="modal-img" src=${user.picture.large} alt="profile picture">
+                    <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
+                    <p class="modal-text">${user.email}</p>
+                    <p class="modal-text cap">${user.location.city}</p>
+                    <hr>
+                    <p class="modal-text">${user.cell}</p>
+                    <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+                    <p class="modal-text">Birthday: ${formattedDob}</p>
+                </div>
             </div>
         </div>
         `; 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+    addModalToggle();
 }
 
 
@@ -81,7 +83,6 @@ function displayUserModal(user) {
  * Event listener to handle displaying user modal window
  * when any part of an employee item is clicked
  */
-
 gallery.addEventListener("click", (e) => {
     const userCard = e.target.closest(".card");
     if (!userCard) return;
@@ -92,6 +93,7 @@ gallery.addEventListener("click", (e) => {
     );
     displayUserModal(user);
 });
+
 
 /**
  * Event listener to handle closing modal window when user
@@ -104,3 +106,58 @@ document.body.addEventListener("click", (e) => {
         modalContainer.remove();
     }
 })
+
+
+/**
+ * Function to add search bar 
+ */
+const searchContainer = document.querySelector(".search-container");
+function addSearchBar() {
+    const searchHtml = `
+    <form action="#" method="get">
+        <input type="search" id="search-input" class="search-input" placeholder="Search...">
+        <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+    </form> 
+    `;
+    searchContainer.insertAdjacentHTML('beforeend', searchHtml);
+}
+addSearchBar()
+
+
+/**
+ * Event listener to add search functionality and filter
+ * employees in real-time based on user input
+ */
+const employeeSearch = document.getElementById("search-input");
+
+employeeSearch.addEventListener("keyup", () => {
+    const employees = gallery.children
+
+    for (let i = 0; i < employees.length; i++) {
+        const userInput = employeeSearch.value.toLowerCase();
+        const employee = employees[i];
+        const employeeName = employee.querySelector(".card-info-container").querySelector(".card-name").innerHTML;
+
+        if (!employeeName.toLowerCase().includes(userInput)) {
+            employee.style.display = "none";
+        } else if (employeeName.toLowerCase().includes(userInput)) {
+            employee.style.display = "flex";
+        }
+    }
+    
+ });
+
+
+/**
+ * Function to add modal toggle 
+ */
+function addModalToggle() {
+    const modalContainer = document.querySelector(".modal-container");
+    const modalToggleHtml = `
+        <div class="modal-btn-container">
+            <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+            <button type="button" id="modal-next" class="modal-next btn">Next</button>
+        </div>
+        `;
+    modalContainer.insertAdjacentHTML("beforeend", modalToggleHtml);
+}
