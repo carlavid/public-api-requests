@@ -16,11 +16,9 @@ const gallery = document.querySelector(".gallery");
  */
 async function getUsers() {
     const response = await fetch("https://randomuser.me/api/?results=12&nat=us&inc=name,email,picture,location,dob,cell");
-
     const data = await response.json();
     users = data.results;
     displayUsers(users);
-
 }
 
 
@@ -80,7 +78,6 @@ function displayUserModal(user) {
         document.body.insertAdjacentHTML('beforeend', modalHtml);
         addModalToggle();
     }
-    
 }
 
 
@@ -126,7 +123,7 @@ function addSearchBar() {
     `;
     searchContainer.insertAdjacentHTML('beforeend', searchHtml);
 }
-addSearchBar()
+addSearchBar();
 
 
 /**
@@ -134,7 +131,6 @@ addSearchBar()
  * employees in real-time based on user input
  */
 const employeeSearch = document.getElementById("search-input");
-
 employeeSearch.addEventListener("keyup", () => {
     const employees = gallery.children
 
@@ -149,8 +145,7 @@ employeeSearch.addEventListener("keyup", () => {
             employee.style.display = "flex";
         }
     }
-    
- });
+});
 
 
 /**
@@ -169,7 +164,7 @@ function addModalToggle() {
 
 
 /**
- * Event listener to handle toggle functionality
+ * Event listener to handle modal toggle functionality
  */
 document.body.addEventListener("click", (e) => {
     const nextModalBtn = document.getElementById("modal-next");
