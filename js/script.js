@@ -54,28 +54,33 @@ getUsers();
  * @param {object} user - The user object
  */
 function displayUserModal(user) {
-    const dob = new Date(user.dob.date);
-    const formattedDob = dob.toLocaleDateString().replace("-", "/");
+    if (user === undefined) {
+        return;
+    } else {
+        const dob = new Date(user.dob.date);
+        const formattedDob = dob.toLocaleDateString().replace("-", "/");
 
-    const modalHtml = `
-        <div class="modal-container">
-            <div class="modal">
-                <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-                <div class="modal-info-container">
-                    <img class="modal-img" src=${user.picture.large} alt="profile picture">
-                    <h3 id="name" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
-                    <p class="modal-text">${user.email}</p>
-                    <p class="modal-text cap">${user.location.city}</p>
-                    <hr>
-                    <p class="modal-text">${user.cell}</p>
-                    <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
-                    <p class="modal-text">Birthday: ${formattedDob}</p>
+        const modalHtml = `
+            <div class="modal-container">
+                <div class="modal">
+                    <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+                    <div class="modal-info-container">
+                        <img class="modal-img" src=${user.picture.large} alt="profile picture">
+                        <h3 id="${user.name.first}${user.name.last}" class="modal-name cap">${user.name.first} ${user.name.last}</h3>
+                        <p class="modal-text">${user.email}</p>
+                        <p class="modal-text cap">${user.location.city}</p>
+                        <hr>
+                        <p class="modal-text">${user.cell}</p>
+                        <p class="modal-text">${user.location.street.number} ${user.location.street.name}, ${user.location.city}, ${user.location.state} ${user.location.postcode}</p>
+                        <p class="modal-text">Birthday: ${formattedDob}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        `; 
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-    addModalToggle();
+            `; 
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        addModalToggle();
+    }
+    
 }
 
 
@@ -161,3 +166,27 @@ function addModalToggle() {
         `;
     modalContainer.insertAdjacentHTML("beforeend", modalToggleHtml);
 }
+
+
+/**
+ * Event listener to handle toggle functionality
+ */
+document.body.addEventListener("click", (e) => {
+    const nextModalBtn = document.getElementById("modal-next");
+    const prevModalBtn = document.getElementById("modal-prev");
+    const modalContainer = document.querySelector(".modal-container");
+    const modalInfo = document.querySelector(".modal-info-container"); 
+
+    for (let i = 0; i < users.length; i++) {
+        let employeeID = `${users[i].name.first}${users[i].name.last}`
+        let employeeElement = document.querySelector(`#${employeeID}`);
+
+        if (e.target === nextModalBtn && modalInfo.contains(employeeElement)) {
+            modalContainer.remove();
+            displayUserModal(users[i+1]);
+        } else if (e.target === prevModalBtn && modalInfo.contains(employeeElement)) {
+            modalContainer.remove();
+            displayUserModal(users[i-1]);
+        }
+    }
+})
