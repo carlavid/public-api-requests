@@ -8,6 +8,9 @@ Extra credit features:
 * Added search functionality to allow users to filter the directory by name
 * Added toggle functionality to allow users to toggle back and forth between employees when the modal window is open
 * Style changes:
+    * Changed background color & text color of employee card when user hovers over it
+    * Changed background color of modal close button, next button and prev button when user hovers over them/clicks them.
+    * Added click animation to employee card and modal close button
     
 
 **Live site: https://carlavid.github.io/public-api-requests/**
