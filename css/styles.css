@@ -244,7 +244,8 @@ header h1 {
 @media (min-width: 1024px) {
 
     .card:hover {
-        background: rgba(255, 255, 255, 1);
+        background: rgba(58, 137, 228, 0.728);
+        color: white;
         border: 1px solid rgba(50, 50, 50, 0.9);
     }
 
@@ -253,7 +254,21 @@ header h1 {
     }
 
     .btn:hover {
-        background: rgba(255, 255, 255, 1);
-        color: rgba(25, 25, 25, 1); 
+        background: rgba(58, 137, 228, 0.728);
+        color: white; 
+    }
+
+    .modal-close-btn:hover {
+        background: rgba(58, 137, 228, 0.728);
+    }
+
+    .card:active {
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+    
+    .modal-close-btn:active {
+        box-shadow: 0 5px #666;
+        transform: translateY(2px);
     }
 }
